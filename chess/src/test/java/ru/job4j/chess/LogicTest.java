@@ -21,13 +21,15 @@ public class LogicTest {
     }
 
     @Test
-    public void whenMoveThenOccupiedCellException() {
+    public void whenMoveThenOccupiedCellException1()
+            throws FigureNotFoundException, OccupiedCellException, ImpossibleMoveException {
         Logic logic = new Logic();
         logic.add(new BishopBlack(Cell.C1));
         logic.add(new BishopBlack(Cell.G5));
-        assertThrows(OccupiedCellException.class, () -> {
+        OccupiedCellException exception = assertThrows(OccupiedCellException.class, () -> {
             logic.move(Cell.C1, Cell.G5);
         });
+        assertThat(exception.getMessage()).isEqualTo("The cell is occupied");
     }
 
     @Test

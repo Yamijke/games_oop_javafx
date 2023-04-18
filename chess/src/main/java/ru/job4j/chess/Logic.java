@@ -22,12 +22,11 @@ public final class Logic {
     }
 
     private boolean free(Cell[] steps) throws OccupiedCellException {
-        for (Cell step : steps) {
-            try {
-                findBy(step);
-                throw new OccupiedCellException();
-            } catch (FigureNotFoundException e) {
-                System.out.println("There is another figure on the way");
+        for (Cell cell : steps) {
+            for (Figure figure : figures) {
+                if (figure != null && figure.position().equals(cell)) {
+                    throw new OccupiedCellException("The cell is occupied");
+                }
             }
         }
         return true;
